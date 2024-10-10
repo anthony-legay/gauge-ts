@@ -27,6 +27,10 @@ export class PrimitiveParser implements ParameterParser {
   }
 
   private convertToNumber(value: string): number | undefined {
+    // likely to be considered as plain string
+    if (value.startsWith("0") || /[a-f-]/.test(value)) {
+      return undefined;
+    }
     const num = Number.parseFloat(value);
     return Number.isNaN(num) ? undefined : num;
   }

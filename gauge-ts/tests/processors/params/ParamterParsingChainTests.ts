@@ -34,12 +34,15 @@ describe("ParameterParsingChain", () => {
       expect(parameterParsingChain.parse(bool)).toBe(true);
     });
 
-    it("should return string when parameter is string", () => {
-      const str = new Parameter();
-      str.setParametertype(Parameter.ParameterType.STATIC);
-      str.setValue("foo");
-      expect(parameterParsingChain.parse(str)).toBe("foo");
-    });
+    it.each(["foo", "7978eea3-aa6c-4650-9ce3-6cf85c2f1109", "012345"])(
+      "should return string when parameter is string (%s)",
+      (param) => {
+        const str = new Parameter();
+        str.setParametertype(Parameter.ParameterType.STATIC);
+        str.setValue(param);
+        expect(parameterParsingChain.parse(str)).toBe(param);
+      },
+    );
   });
 
   describe(".addCustomParser", () => {
